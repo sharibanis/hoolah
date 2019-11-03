@@ -1,2 +1,0 @@
-# hoolah
-hoolah Coding Challenge 
