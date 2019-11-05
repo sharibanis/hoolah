@@ -2,6 +2,7 @@ package hoolah;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class TransactionAnalyser {
 			}
 			it = transactions.entrySet().iterator();
 			int numTransactions = 0;
-			BigDecimal averageTransactionValue = new BigDecimal(0.00);
+			BigDecimal averageTransactionValue = new BigDecimal("0.00");
 			while (it.hasNext()) {
 				Map.Entry entry = (Map.Entry)it.next();
 				transaction = (Transaction)entry.getValue();
@@ -83,7 +84,7 @@ public class TransactionAnalyser {
 					averageTransactionValue = averageTransactionValue.add(transaction.getAmount());
 				}
 			}
-			averageTransactionValue = averageTransactionValue.divide(new BigDecimal(numTransactions));
+			averageTransactionValue = averageTransactionValue.divide(new BigDecimal(numTransactions), 2, RoundingMode.HALF_EVEN);
 			System.out.println("Number of transactions = " + numTransactions);
 			System.out.println("Average Transaction Value = " + averageTransactionValue);
 		} catch (Exception ex) {
