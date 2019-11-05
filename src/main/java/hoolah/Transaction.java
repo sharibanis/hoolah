@@ -1,11 +1,12 @@
 package hoolah;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Transaction {
 	private String ID; 
 	private Date date; 
-	private Double amount; 
+	private BigDecimal amount; 
 	private String merchant; 
 	private String Type;
 	private String relatedTransaction;
@@ -22,10 +23,10 @@ public class Transaction {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
-	public void setAmount(Double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 	public String getMerchant() {

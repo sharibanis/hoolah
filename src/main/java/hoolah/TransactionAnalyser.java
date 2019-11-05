@@ -1,6 +1,7 @@
 package hoolah;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class TransactionAnalyser {
 				transaction = new Transaction();
 				transaction.setID(tokens[0].trim());
 				transaction.setDate(dateFormat.parse(tokens[1].trim()));
-				transaction.setAmount(Double.valueOf(tokens[2].trim()));
+				transaction.setAmount(new BigDecimal(tokens[2].trim()));
 				transaction.setMerchant(tokens[3].trim());
 				transaction.setType(tokens[4].trim());
 				if (tokens.length == 6)
@@ -71,7 +72,7 @@ public class TransactionAnalyser {
 			}
 			it = transactions.entrySet().iterator();
 			int numTransactions = 0;
-			double averageTransactionValue = 0.0;
+			BigDecimal averageTransactionValue = new BigDecimal(0.00);
 			while (it.hasNext()) {
 				Map.Entry entry = (Map.Entry)it.next();
 				transaction = (Transaction)entry.getValue();
@@ -79,10 +80,10 @@ public class TransactionAnalyser {
 					&& transaction.getDate().after(fromDate)
 					&& transaction.getDate().before(toDate)) {
 					numTransactions++;
-					averageTransactionValue += transaction.getAmount();
+					averageTransactionValue = averageTransactionValue.add(transaction.getAmount());
 				}
 			}
-			averageTransactionValue = averageTransactionValue/numTransactions;
+			averageTransactionValue = averageTransactionValue.divide(new BigDecimal(numTransactions));
 			System.out.println("Number of transactions = " + numTransactions);
 			System.out.println("Average Transaction Value = " + averageTransactionValue);
 		} catch (Exception ex) {
